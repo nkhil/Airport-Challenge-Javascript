@@ -8,9 +8,9 @@ describe('Airport', function(){
 
   beforeEach(function(){
     airport = new Airport();
-    plane = jasmine.createSpyObj('plane',['land', 'takeoff', 'landed']);
-    plane1 = jasmine.createSpyObj('plane',['land', 'takeoff', 'landed']);
-    plane2 = jasmine.createSpyObj('plane',['land', 'takeoff', 'landed']);
+    plane = jasmine.createSpyObj('plane',['land', 'takeOff', 'landed']);
+    plane1 = jasmine.createSpyObj('plane',['land', 'takeOff', 'landed']);
+    plane2 = jasmine.createSpyObj('plane',['land', 'takeOff', 'landed']);
   });
 
   describe('.land', function(){
@@ -36,4 +36,14 @@ describe('Airport', function(){
       }).toThrow();
     });
   });
+
+  describe('.takeOff', function(){
+
+    it('can instruct a plane to take off', function(){
+      airport.takeOff(plane);
+      expect(plane.takeOff).toHaveBeenCalled();
+      expect(airport.planes_in_airport).not.toContain(plane);
+    });
+  });
+
 });
