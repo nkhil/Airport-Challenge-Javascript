@@ -71,6 +71,19 @@ describe('Airport', function(){
         airport.takeOff(plane)
       }).toThrow();
     });
+    
+  });
+
+  describe('.stormy', function(){
+    it('checks if the weather is stormy', function(){
+      spyOn(Math, 'random').and.returnValue(1);
+      expect(airport.stormy()).toEqual('stormy');
+    });
+
+    it('checks if the weather is stormy', function(){
+      spyOn(Math, 'random').and.returnValue(0);
+      expect(airport.stormy()).toEqual('sunny');
+    });
   });
 
 });
