@@ -40,10 +40,17 @@ describe('Airport', function(){
   describe('.takeOff', function(){
 
     it('can instruct a plane to take off', function(){
+      airport.land(plane);
       airport.takeOff(plane);
       expect(plane.takeOff).toHaveBeenCalled();
       expect(airport.planes_in_airport).not.toContain(plane);
     });
+
+    it('throws an error if the plane is not in the airport', function(){
+      expect(function(){
+        airport.takeOff(plane)
+      }).toThrow();
+    })
   });
 
 });
