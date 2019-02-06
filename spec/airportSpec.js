@@ -28,5 +28,12 @@ describe('Airport', function(){
         airport1.land(plane1)
       }).toThrow();
     })
+
+    it('prevents planes that have already landed from landing again', function(){
+      airport.land(plane);
+      expect(function(){
+        airport.land(plane)
+      }).toThrow();
+    });
   });
 });
