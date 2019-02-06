@@ -9,8 +9,8 @@ describe('Airport', function(){
   beforeEach(function(){
     airport = new Airport();
     plane = jasmine.createSpyObj('plane',['land', 'takeoff', 'landed']);
-    plane1 = jasmine.createSpy('plane1');
-    plane1 = jasmine.createSpy('plane1');
+    plane1 = jasmine.createSpyObj('plane',['land', 'takeoff', 'landed']);
+    plane2 = jasmine.createSpyObj('plane',['land', 'takeoff', 'landed']);
   });
 
   describe('.land', function(){
@@ -20,5 +20,13 @@ describe('Airport', function(){
       expect(plane.land).toHaveBeenCalled();
       expect(airport.planes_in_airport).toContain(plane);
     });
+
+    it('prevents landing when the airport is full', function(){
+      const airport1 = new Airport(1);
+      airport1.land(plane);
+      expect(function(){
+        airport1.land(plane1)
+      }).toThrow();
+    })
   });
 });
