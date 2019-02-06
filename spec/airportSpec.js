@@ -11,6 +11,7 @@ describe('Airport', function(){
     plane = jasmine.createSpyObj('plane',['land', 'takeOff', 'landed']);
     plane1 = jasmine.createSpyObj('plane',['land', 'takeOff', 'landed']);
     plane2 = jasmine.createSpyObj('plane',['land', 'takeOff', 'landed']);
+    weather = jasmine.createSpyObj('weather',['stormy']);
   });
 
   describe('.land', function(){
@@ -57,6 +58,15 @@ describe('Airport', function(){
     });
 
     it('throws an error if the plane is not in the airport', function(){
+      expect(function(){
+        airport.takeOff(plane)
+      }).toThrow();
+    });
+
+    it('prevents takeOff when weather is stormy', function(){
+      spyOn(Math, 'random').and.returnValue(0);
+      airport.land(plane)
+      spyOn(airport,'stormy').and.returnValue('stormy');
       expect(function(){
         airport.takeOff(plane)
       }).toThrow();
