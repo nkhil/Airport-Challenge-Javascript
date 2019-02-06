@@ -23,6 +23,7 @@ describe('Airport', function(){
 
     it('prevents landing when the airport is full', function(){
       const airport1 = new Airport(1);
+      spyOn(Math, 'random').and.returnValue(0);
       airport1.land(plane);
       expect(function(){
         airport1.land(plane1)
@@ -30,8 +31,16 @@ describe('Airport', function(){
     })
 
     it('prevents planes that have already landed from landing again', function(){
+      spyOn(Math, 'random').and.returnValue(0);
       airport.land(plane);
       expect(function(){
+        airport.land(plane)
+      }).toThrow();
+    });
+
+    it('prevents landing when weather is stormy', function(){
+      spyOn(Math, 'random').and.returnValue(1)
+      expect(function() {
         airport.land(plane)
       }).toThrow();
     });
@@ -39,7 +48,8 @@ describe('Airport', function(){
 
   describe('.takeOff', function(){
 
-    it('can instruct a plane to take off', function(){
+    it('can instruct a plane to take off and confirm it has left', function(){
+      spyOn(Math, 'random').and.returnValue(0);
       airport.land(plane);
       airport.takeOff(plane);
       expect(plane.takeOff).toHaveBeenCalled();
@@ -50,7 +60,7 @@ describe('Airport', function(){
       expect(function(){
         airport.takeOff(plane)
       }).toThrow();
-    })
+    });
   });
 
 });
